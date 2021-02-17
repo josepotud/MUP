@@ -13,7 +13,7 @@
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-			 		document.getElementById("updateInfo").innerHTML.concat(this.responseText);
+			 		document.getElementById("updateInfo").innerHTML = "Datos actualizados a fecha de " + this.responseText;
 				};
 		  
 			xhttp.open("GET", "txt/fecha.txt", true);
@@ -99,10 +99,10 @@
             <div class="col-12">
               <h1 class="text-center">Formateador de medicación MUP</h1>
               <p class="text-center">Copia el texto desde el MUP e introducelo en el cuadro de texto de abajo.</p>
+				<p class="text-center" id="updateInfo" name="Update_info">Datos actualizados a fecha de</p>
               <p>&nbsp;</p>
               <p class="text-center"><a class="btn btn-primary btn-lg" href="#" role="button" onClick="testFunction()">Formatealo</a> </p>
             </div>
-            <div class="col-12 text-white bg-info" id="updateInfo" name="Update_info">Datos actualizados a fecha de</div>
           </div>
         </div>
       </div>
