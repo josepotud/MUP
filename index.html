@@ -8,12 +8,13 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
   <script>
-	  
+	  var result = []
 	  function loadFunction(){
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 			 		document.getElementById("updateInfo").innerHTML = "Datos actualizados a fecha de " + this.responseText;
+					console.log(this.responseText)
 				};
 		  
 			xhttp.open("GET", "txt/fecha.txt", true);
@@ -25,8 +26,6 @@
 				if (this.readyState == 4 && this.status == 200) {
 //			 		document.getElementById("demo").innerHTML = this.responseText;
 					var lines = this.responseText.split("\n")
-					
-					var result = [];
 
 					// NOTE: If your columns contain commas in their values, you'll need
 					// to deal with those before doing the next step 
@@ -48,7 +47,7 @@
 					}
 
 				  //return result; //JavaScript object
-				  console.log(JSON.stringify(result)); //JSON
+				  //console.log(JSON.stringify(result)); //JSON
 					}
 				};
 		  
