@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formateador de medicación MUP</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+  <script>
+	  
+	  function loadFunction(){
+//		const fs = require('fs');
+//		const papa = require('papaparse');
+//		const file = fs.createReadStream('20210216_Nomenclator_de_Facturacion.csv');
+//		var count = 0; // cache the running count
+//		papa.parse(file, {
+//			worker: true, // Don't bog down the main thread if its a big file
+//			step: function(result) {
+//				// do stuff with result
+//			},
+//			complete: function(results, file) {
+//				console.log('parsing complete read', count, 'records.'); 
+//			}
+//		});
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+			 		document.getElementById("demo").innerHTML = this.responseText;
+					console.log("Exito");
+					}
+				};
+			xhttp.open("GET", "nomenclator.csv", true);
+			xhttp.send();
+	  }
+	  
+	  function testFunction(){
+			var inputText = document.getElementById("muptext").value.split("\n")
+			var drugLineList = []
+			for (const i in inputText) {
+				try {
+					  var num = parseInt(inputText[i][0]);
+					console.log("num: " + num);
+					} 
+				catch (error) {
+					  console.error(error);
+						var num = inputText[i][0];
+					console.log(num);
+					  // expected output: ReferenceError: nonExistentFunction is not defined
+					  // Note - error messages will vary depending on browser
+					}
+				if (Number.isInteger(num)){
+					drugLineList.push(inputText[i]);	
+				}
+		  		else{
+			  
+		  }
+			}
+		  
+		  	for (const l in drugLineList){
+				for (const c in drugLineList[l]){
+					if (c > 2 && (drugLineList[l][c] == " ")){
+						console.log("test")
+					}
+				}
+			}
+			
+		 	document.getElementById("resulttext").innerHTML = drugLineList
+	  }
+	  </script>
+  </head>
+  <body onload="loadFunction()">
+    <header>
+      <div class="jumbotron">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="text-center">Formateador de medicación MUP</h1>
+              <p class="text-center">Copia el texto desde el MUP e introducelo en el cuadro de texto de abajo.</p>
+              <p>&nbsp;</p>
+              <p class="text-center"><a class="btn btn-primary btn-lg" href="#" role="button" onClick="testFunction()">Formatealo</a> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  <div class="container">
+	  <div class="col-2"></div>
+	  <div class="col-xl-auto">
+		<div class="d-flex justify-content-center">
+			<textarea class="" id="muptext" name="MUPText" rows="8" cols="150"></textarea>
+		</div>
+		  <hr>
+		  <div class="d-flex justify-content-left">
+			<div class="">
+				Texto formateado:
+			</div>
+		  </div>
+	  	<div class="col-12">
+			  <div class="bg-light" id="resulttext" name="ResultText">
+				  <p>Aquí se mostrará el texto resultado</p>
+			  </div>
+		  </div>
+	  </div>
+	  <div class="col-2"></div>
+  </div>
+	  <hr>
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p>Copyright © MyWebsite. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.3.1.min.js"></script> 
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script> 
+    <script src="js/bootstrap-4.3.1.js"></script>
+	  <script src="js/papaparse.js"></script>
+	  <script src="js/require.js"></script>
+  </body>
+</html>
