@@ -13,7 +13,7 @@
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-			 		document.getElementById("updateInfo").innerHTML = "Datos actualizados a fecha de " + this.responseText;
+			 		document.getElementById("updateInfo").innerHTML = "Datos actualizados";
 					console.log(this.responseText)
 				} else {
 					document.getElementById("updateInfo").innerHTML = "No se ha podido comprobar la fecha de actualización";
