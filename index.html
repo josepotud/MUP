@@ -86,61 +86,108 @@
 		  var drugs = []
 		  	for (const l in drugLineList){
 				var s = ""
-				for (const i in drugLineList[l].split("   ")[1].split(" ")){
+				drugLineList[l] = drugLineList[l].replace("   ", " ");
+				drugLineList[l] = drugLineList[l].replace("  ", " ");
+				
+				for (const i in drugLineList[l].split(" ")){
+					//console.log(drugLineList[l].split(" ")[i])
 					try {
-						  var num = parseInt(drugLineList[l].split("   ")[1].split(" ")[i][0]);
+						  var num = parseInt(drugLineList[l].split(" ")[i][0]);
 						//console.log("num: " + num);
 						} 
 					catch (error) {
 						  console.error(error);
-							var num = drugLineList[l].split("   ")[1].split(" ")[i][0];
+							var num = drugLineList[l].split(" ")[i][0];
 						console.log(num);
 						  // expected output: ReferenceError: nonExistentFunction is not defined
 						  // 
 					}
 					
 					if (i == 0){
-						s = drugLineList[l].split("   ")[1].split(" ")[i];
+						
+					}
+					else if (i == 1){
+						s = drugLineList[l].split(" ")[i];
+					}
+					else if (String(drugLineList[l].split(" ")[i]).includes("-") // no entiendo por que no me detecta los guiones.....
+					   ){
+							console.log(drugLineList[l])
+							s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
 					}
 					else if (!Number.isInteger(num)){
-						s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[i])
-					}
+						s = s.concat(" ", drugLineList[l].split(" ")[i])
+					}					
 					else {
-						if (drugLineList[l].split("   ")[1].split(" ")[i].includes("MG") || drugLineList[l].split("   ")[1].split(" ")[i].includes("MCG")){
-							s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[i])
-							console.log(parseInt(i)+1)
+						if (drugLineList[l].split(" ")[i].includes("MG") || drugLineList[l].split(" ")[i].includes("MCG")){
+							s = s.concat(" ", drugLineList[l].split(" ")[i])
 						}
-						else if((String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("MG") && 
-								 drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1].length > 2 )|| 
-								(String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("MCG") && 
-								 drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1].length > 3)){
+						else if((String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MG") && 
+								 drugLineList[l].split(" ")[parseInt(i)+1].length > 2 )|| 
+								(String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG") && 
+								 drugLineList[l].split(" ")[parseInt(i)+1].length > 3)){
 							
-							if((String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("MG/") && 
-								 !String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("/ML"))|| 
-								(String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("MCG/") && 
-								 String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("MCG/"))){
+							if((String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MG/") && 
+								 !String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("/ML"))|| 
+								(String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG/") && 
+								 String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG/"))){
 							//si contine MG/ pero no contiene /ML --> añadir i, i+1 e i+2
-								s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[parseInt(i)])
-								s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1])
-								s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+2])
+								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
+								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+1])
+								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+2])
+								// si el siguiente tmb es mg, añadir (esto es para las de 3)
 							}
 							else{
-								s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1])	
+								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+1])	
 							}
 						}
-						else if (String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("MG")|| 
-								(String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).includes("MCG"))){
-							s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[i])
-							s = s.concat("", drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1])
+						else if (String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MG")|| 
+								(String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG"))){
+							s = s.concat(" ", drugLineList[l].split(" ")[i])
+							s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+1])
 						}
-						else if (String(drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1]).startsWith(String(drugLineList[l].split("   ")[1].split(" ")[i]))){
-							s = s.concat(" ", drugLineList[l].split("   ")[1].split(" ")[parseInt(i)+1])
+						else if (String(drugLineList[l].split(" ")[parseInt(i)+1]).startsWith(String(drugLineList[l].split(" ")[i]))){
+							s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+1])
 						}
+						
+						break
+					}
+					
+
+				}
+				
+				
+				for (const i in drugLineList[l].split(" ")){
+					try {
+						  var num = parseInt(drugLineList[l].split(" ")[i][0]);
+						//console.log("num: " + num);
+						} 
+					catch (error) {
+						  console.error(error);
+							var num = drugLineList[l].split(" ")[i][0];
+						console.log(num);
+						  // expected output: ReferenceError: nonExistentFunction is not defined
+						  // 
+					}
+					
+					if (String(drugLineList[l].split(" ")[i]).includes("-") && Number.isInteger(num)){
+							console.log(drugLineList[l])
+							s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
 						break
 					}
 				}
+						
+				
+				//s = s.concat(" ", "<br/>")
+				s = s.toLowerCase()
+				
+				if (drugs.length == 0){
+					s = s.charAt(0).toUpperCase() + s.slice(1)
+				}
+				else{
+					s = " " + s
+				}
 				drugs.push(s)
-				//console.log(drugLineList[l].split("   ")[0] + ", " + drugLineList[l].split("   ")[1].split(" ")[0])
+				//console.log(drugLineList[l].split("   ")[0] + ", " + drugLineList[l].split(" ")[0])
 //				for (const c in drugLineList[l]){
 //					if (c > 2 && (drugLineList[l][c] == " ")){
 //						console.log("test")
@@ -149,8 +196,7 @@
 				//console.log(drugLineList[l].split("   ")[0])
 				//document.getElementById("resulttext").innerHTML = result[drugLineList[l].split("   ")[0]]
 			}
-			console.log(drugs)
-		 	document.getElementById("resulttext").innerHTML = drugs
+		 	document.getElementById("resulttext").innerHTML = String(drugs)
 	  }
 	  </script>
   </head>
