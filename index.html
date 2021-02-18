@@ -132,12 +132,15 @@
 								 String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG/"))){
 							//si contine MG/ pero no contiene /ML --> añadir i, i+1 e i+2
 								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
-								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+1])
-								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+2])
-								// si el siguiente tmb es mg, añadir (esto es para las de 3)
+								s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+1])
+								s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+2])
+								if (drugLineList[l].split(" ")[parseInt(i)+3] == "MG" || 
+								   drugLineList[l].split(" ")[parseInt(i)+3] == "MCG"){
+									s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+3])
+									}// si el siguiente tmb es mg, añadir (esto es para las de 3)
 							}
 							else{
-								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+1])	
+								s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+1])	
 							}
 						}
 						else if (String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MG")|| 
@@ -186,7 +189,11 @@
 				else{
 					s = " " + s
 				}
+//				if (!drugLineList[l].split(" ")[1] == "MASCARILLA"){
+//					
+//				}
 				drugs.push(s)
+				
 				//console.log(drugLineList[l].split("   ")[0] + ", " + drugLineList[l].split(" ")[0])
 //				for (const c in drugLineList[l]){
 //					if (c > 2 && (drugLineList[l][c] == " ")){
@@ -240,7 +247,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
           </div>
         </div>
       </div>
