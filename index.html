@@ -109,18 +109,19 @@
 					else if (i == 1){
 						s = drugLineList[l].split(" ")[i];
 					}
-					else if (String(drugLineList[l].split(" ")[i]).includes("-") // no entiendo por que no me detecta los guiones.....
-					   ){
-							console.log(drugLineList[l])
-							s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
-					}
 					else if (!Number.isInteger(num)){
 						s = s.concat(" ", drugLineList[l].split(" ")[i])
 					}					
 					else {
-						if (drugLineList[l].split(" ")[i].includes("MG") || drugLineList[l].split(" ")[i].includes("MCG")){
+						if (drugLineList[l].split(" ")[i].includes("MG") || drugLineList[l].split(" ")[i].includes("MCG") ||
+						   (String(drugLineList[l].split(" ")[i]).includes("G") && Number.isInteger(num) && 
+							!drugLineList[l].split(" ")[i].includes("MG") && !drugLineList[l].split(" ")[i].includes("MCG"))){
 							s = s.concat(" ", drugLineList[l].split(" ")[i])
 						}
+						else if (String(drugLineList[l].split(" ")[parseInt(i)+1]) == "G"){
+							s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
+							s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+1])
+							 }	
 						else if((String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MG") && 
 								 drugLineList[l].split(" ")[parseInt(i)+1].length > 2 )|| 
 								(String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG") && 
@@ -129,7 +130,7 @@
 							if((String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MG/") && 
 								 !String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("/ML"))|| 
 								(String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG/") && 
-								 String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("MCG/"))){
+								 !String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("/ML"))){
 							//si contine MG/ pero no contiene /ML --> añadir i, i+1 e i+2
 								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
 								s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+1])
@@ -138,6 +139,10 @@
 								   drugLineList[l].split(" ")[parseInt(i)+3] == "MCG"){
 									s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+3])
 									}// si el siguiente tmb es mg, añadir (esto es para las de 3)
+							}
+							else if (String(drugLineList[l].split(" ")[parseInt(i)+1]).includes("/ML")){
+								s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
+								s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+1])
 							}
 							else{
 								s = s.concat("", drugLineList[l].split(" ")[parseInt(i)+1])	
@@ -151,10 +156,10 @@
 						else if (String(drugLineList[l].split(" ")[parseInt(i)+1]).startsWith(String(drugLineList[l].split(" ")[i]))){
 							s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)+1])
 						}
-						
+					
 						break
 					}
-					
+									
 
 				}
 				
@@ -173,7 +178,7 @@
 					}
 					
 					if (String(drugLineList[l].split(" ")[i]).includes("-") && Number.isInteger(num)){
-							console.log(drugLineList[l])
+							//console.log(drugLineList[l])
 							s = s.concat(" ", drugLineList[l].split(" ")[parseInt(i)])
 						break
 					}
@@ -189,10 +194,11 @@
 				else{
 					s = " " + s
 				}
-//				if (!drugLineList[l].split(" ")[1] == "MASCARILLA"){
-//					
-//				}
-				drugs.push(s)
+				console.log(s)
+				if (!s.toLowerCase().includes("mascarilla")){
+					drugs.push(s)
+				}
+				
 				
 				//console.log(drugLineList[l].split("   ")[0] + ", " + drugLineList[l].split(" ")[0])
 //				for (const c in drugLineList[l]){
@@ -247,7 +253,8 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.<br/>
+			<p>Puedes consultar el proyecto en github <a href="https://github.com/josepotud/MUP">aquí</a>.</p>
           </div>
         </div>
       </div>
